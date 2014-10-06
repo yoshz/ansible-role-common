@@ -19,23 +19,33 @@
   register: localegen_result
   changed_when: "'... done' in localegen_result.stdout"
   when: locale_install | length > 0
+  tags: [locale]
 
 - name: Set system locale
   sudo: yes
   template: src=locale.j2 dest=/etc/default/locale
             owner=root group=root mode=644
   when: locale_default is defined
+  tags: [locale]
 
 - name: Update APT once in a while
   apt: cache_valid_time={{apt_cache_valid_time}} update_cache=yes
+  tags: [apt-cache]
 
-- name: Install {{ item }} pkgs
+- name: Install system packages
   apt: pkg={{ item }}
   with_items: packages
   sudo: yes
+  tags: [packages]
 
 - name: Configure GIT
   copy: src=gitconfig dest=/etc/gitconfig
       owner=root group=root mode=0644
   when: item == 'git'
   with_items: packages
+
+- name: Install Ruby Gems
+  gem: name={{ item.key }} version={{ item.value }} user_install=no state=present
+  with_dict: ruby_gems
+  when: ruby_gems | length > 0
+  tags: [rubygems]

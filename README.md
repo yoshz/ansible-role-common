@@ -3,10 +3,11 @@ common
 
 An Ansible role for common system configuration:
 
+  - Fix ns resolving when necessary
   - Configure default locale
   - Build additional locales
   - Install system packages
-  - Fix ns resolving when necessary
+  - Install ruby gems
   - Setup default gitconfig when git is installed
 
 
@@ -32,11 +33,17 @@ Install system packages:
       - htop
       - atop
 
+Install Ruby Gems:
+
+    ruby_gems:
+      sass: 1.0
+
 
 Dependencies
 ------------
 
 None
+
 
 License
 -------
