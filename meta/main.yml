@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Yosh de Vos"
-  description: Common role for prepair machine
+  description: An Ansible role for common system configuration
   company: Undev
   license: MIT
   version: 0.1
