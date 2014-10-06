@@ -1,0 +1,41 @@
+---
+- name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
+  command: host -t A ansible.cc
+  register: ns
+  ignore_errors: yes
+
+- name: Pushes new resolver configuration is resolver fails
+  lineinfile: regexp="^nameserver " line="nameserver 8.8.8.8" dest=/etc/resolv.conf
+  sudo: yes
+  when: ns|failed
+
+- name: Checks if resolver is working properly with new nameserver
+  command: host -t A ansible.cc
+  when: ns|failed
+
+- name: Install locales
+  sudo: yes
+  shell: locale-gen {{ locale_install | join(' ') }}
+  register: localegen_result
+  changed_when: "'... done' in localegen_result.stdout"
+  when: locale_install | length > 0
+
+- name: Set system locale
+  sudo: yes
+  template: src=locale.j2 dest=/etc/default/locale
+            owner=root group=root mode=644
+  when: locale_default is defined
+
+- name: Update APT once in a while
+  apt: cache_valid_time={{apt_cache_valid_time}} update_cache=yes
+
+- name: Install {{ item }} pkgs
+  apt: pkg={{ item }}
+  with_items: packages
+  sudo: yes
+
+- name: Configure GIT
+  copy: src=gitconfig dest=/etc/gitconfig
+      owner=root group=root mode=0644
+  when: item == 'git'
+  with_items: packages
