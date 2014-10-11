@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: "Yosh de Vos"
-  description: An Ansible role for common system configuration
-  company: Undev
+  description: An Ansible role for common system configuration.
   license: MIT
   version: 0.1
   min_ansible_version: 1.4
