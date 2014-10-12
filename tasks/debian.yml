@@ -43,9 +43,4 @@
       owner=root group=root mode=0644
   when: item == 'git'
   with_items: packages
-
-- name: Install Ruby Gems
-  gem: name={{ item.key }} version={{ item.value }} user_install=no state=present
-  with_dict: ruby_gems
-  when: ruby_gems | length > 0
-  tags: [rubygems]
+  tags: [git]

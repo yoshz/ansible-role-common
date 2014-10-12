@@ -33,11 +33,6 @@ Install system packages:
       - htop
       - atop
 
-Install Ruby Gems:
-
-    ruby_gems:
-      sass: 1.0
-
 
 Dependencies
 ------------
