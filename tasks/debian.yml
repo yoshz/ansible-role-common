@@ -38,6 +38,12 @@
   sudo: yes
   tags: [packages]
 
+- name: Uninstall system packages
+  apt: pkg={{ item }} state=absent purge=yes
+  with_items: packages_remove
+  sudo: yes
+  tags: [packages]
+
 - name: Configure GIT
   copy: src=gitconfig dest=/etc/gitconfig
       owner=root group=root mode=0644
