@@ -30,6 +30,7 @@
 
 - name: Update APT once in a while
   apt: cache_valid_time={{apt_cache_valid_time}} update_cache=yes
+  when: apt_cache_valid_time > 0
   tags: [apt-cache]
 
 - name: Install system packages
