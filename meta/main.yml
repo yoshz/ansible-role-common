@@ -3,7 +3,7 @@ galaxy_info:
   author: "Yosh de Vos"
   description: An Ansible role for common system configuration.
   license: MIT
-  version: 0.1
+  version: 0.2
   min_ansible_version: 1.4
   platforms:
     - name: Ubuntu

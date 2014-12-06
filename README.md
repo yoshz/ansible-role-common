@@ -7,7 +7,7 @@ An Ansible role for common system configuration:
   - Configure default locale
   - Build additional locales
   - Install system packages
-  - Install ruby gems
+  - Uninstall system packages
   - Setup default gitconfig when git is installed
 
 
