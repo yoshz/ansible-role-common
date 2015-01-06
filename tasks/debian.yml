@@ -1,6 +1,6 @@
 ---
 - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
-  command: host -t A ansible.cc
+  command: host -t A google.com
   register: ns
   ignore_errors: yes
 
@@ -10,7 +10,7 @@
   when: ns|failed
 
 - name: Checks if resolver is working properly with new nameserver
-  command: host -t A ansible.cc
+  command: host -t A google.com
   when: ns|failed
 
 - name: Install locales
