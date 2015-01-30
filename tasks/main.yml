@@ -1,3 +1,40 @@
 ---
-- include: debian.yml
-  when: ansible_os_family == 'Debian'
+
+- name: Install locales
+  sudo: yes
+  shell: locale-gen {{ locale_install | join(' ') }}
+  register: localegen_result
+  changed_when: "'... done' in localegen_result.stdout"
+  when: locale_install | length > 0
+  tags: [locale]
+
+- name: Set system locale
+  sudo: yes
+  template: src=locale.j2 dest=/etc/default/locale
+            owner=root group=root mode=644
+  when: locale_default is defined
+  tags: [locale]
+
+- name: Update APT once in a while
+  apt: cache_valid_time={{apt_cache_valid_time}} update_cache=yes
+  when: apt_cache_valid_time > 0
+  tags: [apt-cache]
+
+- name: Install system packages
+  apt: pkg={{ item }}
+  with_items: packages
+  sudo: yes
+  tags: [packages]
+
+- name: Uninstall system packages
+  apt: pkg={{ item }} state=absent purge=yes
+  with_items: packages_remove
+  sudo: yes
+  tags: [packages]
+
+- name: Configure GIT
+  copy: src=gitconfig dest=/etc/gitconfig
+      owner=root group=root mode=0644
+  when: item == 'git'
+  with_items: packages
+  tags: [git]
