@@ -3,7 +3,6 @@ common
 
 An Ansible role for common system configuration:
 
-  - Fix ns resolving when necessary
   - Configure default locale
   - Build additional locales
   - Install system packages
