@@ -1,0 +1,21 @@
+- name: Install updates
+  apt: upgrade=dist update_cache=yes
+
+- name: Update APT once in a while
+  apt: cache_valid_time=3600 update_cache=yes
+
+- name: Install essential packages
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+  - apt-transport-https
+  - ntp
+  - fail2ban
+  - ufw
+  - vim
+  - curl
+
+- name: Ensure services is running and enabled
+  service: name="{{ item }}" state=started enabled=yes
+  with_items:
+  - ntp
+  - fail2ban

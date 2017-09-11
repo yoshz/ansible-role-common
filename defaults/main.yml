@@ -1,6 +1,6 @@
----
-locale_default: "en_US.UTF-8"
-locale_install: []
-apt_cache_valid_time: 3600
-packages: []
-packages_remove: []
+timezone: Etc/UTC
+admin_group: admin
+swapfile_location: /swapfile
+swapfile_size: ""
+swapfile_swappiness: 10
+swapfile_vfs_cache_pressure: 50

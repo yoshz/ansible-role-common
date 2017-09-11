@@ -1,0 +1,2 @@
+- name: Ensure UTC timezone
+  timezone: name={{ timezone }}

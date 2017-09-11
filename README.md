@@ -1,45 +1,34 @@
-common
-======
+yoshzz.common
+=============
 
-An Ansible role for common system configuration:
+An Ansible role for basic common system configuration:
 
-  - Configure default locale
-  - Build additional locales
-  - Install system packages
-  - Uninstall system packages
-  - Setup default gitconfig when git is installed
-
+- Install latest system packages
+- Enable password-less sudo for admin group
+- Restrict SSH and enable ufw
+- Install and configure swapfile (very useful for small cloud instances) 
 
 Requirements
 ------------
 
-None
-
+See [meta/main.yml](meta/main.yml)
 
 Role Variables
 --------------
 
-Set locales:
-
-    locale_default: "en_US.UTF-8"
-    locale_install: [ "en_US.UTF-8", "nl_NL.UTF-8" ]
-
-Install system packages:
-
-    packages:
-      - curl
-      - vim
-      - htop
-      - atop
-
+See [defaults/main.yml](defaults/main.yml)
 
 Dependencies
 ------------
 
-None
-
+See [meta/main.yml](meta/main.yml)
 
 License
 -------
 
 MIT
+
+Author Information
+------------------
+
+Yosh de Vos <yosh@elzorro.nl>
