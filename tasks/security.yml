@@ -1,18 +1,15 @@
-- name: Ensure sudoers.d is enabled
+- name: Set up password-less sudo for sudo group
   lineinfile:
-    dest: /etc/sudoers
-    regexp: '^#includedir /etc/sudoers.d'
-    line: '#includedir /etc/sudoers.d'
     state: present
-    backup: yes
-
-- name: Set up password-less sudo for admin users
-  copy:
-    content: "%{{ admin_group }} ALL=(ALL) NOPASSWD:ALL\nDefaults    env_keep+=SSH_AUTH_SOCK\n"
-    dest: /etc/sudoers.d/admin
+    dest: /etc/sudoers
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
     owner: root
     group: root
     mode: 0440
+  with_items:
+  - { regexp: '^#?%sudo\s', line: '%sudo ALL=(ALL) NOPASSWD:ALL'}
+  - { regexp: '^Defaults\s*env_keep\+=', line: 'Defaults env_keep+=SSH_AUTH_SOCK'}
 
 - name: Strict SSH access
   lineinfile:
@@ -24,7 +21,6 @@
   with_items:
   - { key: 'PermitRootLogin',        value: 'without-password'}
   - { key: 'PasswordAuthentication', value: 'no'}
-  - { key: 'AllowGroups',            value: admin_group }
   - { key: 'MaxAuthTries',           value: "5"}
   - { key: 'LoginGraceTime',         value: "60"}
   - { key: 'MaxSessions',            value: "5"}
