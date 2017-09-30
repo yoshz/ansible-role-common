@@ -1,5 +1,7 @@
 timezone: Etc/UTC
 admin_group: admin
+locale: en_US.UTF-8
+lang: en_US
 swapfile_location: /swapfile
 swapfile_size: ""
 swapfile_swappiness: 10

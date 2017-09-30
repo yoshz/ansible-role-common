@@ -3,3 +3,6 @@
 
 - name: Reload sysctl
   command: sysctl -p
+
+- name: Update locale
+  command: update-locale

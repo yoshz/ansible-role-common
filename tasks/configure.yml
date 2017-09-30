@@ -1,2 +1,11 @@
 - name: Ensure UTC timezone
   timezone: name={{ timezone }}
+
+- name: Ensure locale
+  copy:
+    content: |
+      LANG={{ locale }}
+      LANGUAGE={{ lang }}
+      LC_ALL={{ locale }}
+    dest: /etc/default/locale
+  notify: Update locale
