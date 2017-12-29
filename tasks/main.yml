@@ -1,9 +1,9 @@
-- include: configure.yml
+- import_tasks: configure.yml
   tags: configure
-- include: software.yml
+- import_tasks: software.yml
   tags: software
-- include: security.yml
+- import_tasks: security.yml
   tags: security
-- include: swap.yml
+- import_tasks: swap.yml
   tags: swap
   when: swapfile_size != ""
