@@ -1,8 +1,8 @@
-- name: Install updates
-  apt: upgrade=dist update_cache=yes
-
 - name: Update APT once in a while
   apt: cache_valid_time=3600 update_cache=yes
+
+- name: Install updates
+  apt: upgrade=dist
 
 - name: Install essential packages
   apt: pkg="{{ item }}" state=latest
